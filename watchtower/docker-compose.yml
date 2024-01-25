@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_SCHEDULE=0 0 0 */3 * *
+      # Its a schedule to check updates each 3 days
+      - WATCHTOWER_CLEANUP=true
+      - TZ=your_time_zone
+      - WATCHTOWER_DEBUG: "true"      
+      - WATCHTOWER_NOTIFICATIONS: "email" 
+      - WATCHTOWER_NOTIFICATION_EMAIL_FROM: "email@cloud.local"
+      - WATCHTOWER_NOTIFICATION_EMAIL_TO: "your email" 
+      # you have to use a network alias here, if you use your own certificate 
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER: "IP" 
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: "PORT" 
+      - WATCHTOWER_NOTIFICATION_EMAIL_DELAY: 2 
+    restart: always
