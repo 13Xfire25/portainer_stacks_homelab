@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    environment:
+      - PUID=1000  # Change this value according to your user in the system
+      - PGID=1000  # Change this value according to your group in the system
+      - TZ=Your_Timezone  # For example, "America/New_York"
+    volumes:
+      - /path/to/appdata/heimdall:/config
+    ports:
+      - {PORT}:80
+      - 443:443
+    restart: unless-stopped
